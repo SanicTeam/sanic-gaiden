@@ -2,12 +2,16 @@ extends KinematicBody
 
 
 const SPEED = 5
-const GRAVITY = -9.8
-
+const GRAVITY = -9.8 * 2
+const MAX_SLOPE_ANGLE = deg2rad(30)
+const JUMP_SPEED = 10
 
 var cam_base
 
 var velocity = Vector3(0, 0, 0)
+
+var on_ground = false
+var jump_held = false
 
 func _ready():
 	cam_base = get_parent().get_node("cam_base")
@@ -26,6 +30,14 @@ func _fixed_process(delta):
 		transX -= 1
 	if Input.is_action_pressed("ui_right"):
 		transX += 1
+		
+	if Input.is_action_pressed("ui_accept"):
+		if on_ground == true and jump_held == false:
+			velocity.y = JUMP_SPEED
+			jump_held = true
+			on_ground = false
+	else:
+		jump_held = false
 
 	velocity.x = transX*SPEED
 	velocity.z = transZ*SPEED
@@ -38,6 +50,13 @@ func _fixed_process(delta):
 
 	while(is_colliding() and attempts > 0):
 		var norm = get_collision_normal()
+		
+		if (acos(norm.dot(Vector3(0, 1, 0))) < MAX_SLOPE_ANGLE):
+			# If angle to the "up" vectors is < angle tolerance,
+			# char is on floor
+			#floor_velocity = get_collider_velocity()
+			on_ground = true
+		
 		motion = norm.slide(motion)
 		velocity = norm.slide(velocity)
 		motion = move(motion)

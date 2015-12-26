@@ -20,17 +20,16 @@ func _ready():
 func _fixed_process(delta):
 	var transX = 0
 	var transZ = 0
-
+	
 	if Input.is_action_pressed("ui_up"):
 		transZ -= 1
 	if Input.is_action_pressed("ui_down"):
 		transZ += 1
-
 	if Input.is_action_pressed("ui_left"):
 		transX -= 1
 	if Input.is_action_pressed("ui_right"):
 		transX += 1
-		
+	
 	if Input.is_action_pressed("ui_accept"):
 		if on_ground == true and jump_held == false:
 			velocity.y = JUMP_SPEED
@@ -45,7 +44,11 @@ func _fixed_process(delta):
 
 	var motion = velocity.rotated(Vector3(0, -1, 0), cam_base.get_rotation().y)*delta
 	motion = move(motion)
-
+	
+	if transX || transZ:
+		var direction = Vector3(velocity.x, 0, velocity.z).rotated(Vector3(0, -1, 0), cam_base.get_rotation().y)
+		set_rotation(Vector3(0, atan2(direction.x, direction.z), 0))
+	
 	var attempts = 4
 
 	while(is_colliding() and attempts > 0):

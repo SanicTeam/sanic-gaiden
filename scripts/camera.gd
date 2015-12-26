@@ -16,7 +16,7 @@ var velocity = Vector3(0, 0, 0)
 
 func _ready():
 	camera = get_node("cam_pitch")
-	sanic = get_tree().get_root().get_node("main/sanic")
+	sanic = get_parent().get_node("sanic")
 	set_process_input(true)
 	set_process(true)
 

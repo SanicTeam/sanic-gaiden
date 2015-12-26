@@ -10,7 +10,7 @@ var cam_base
 var velocity = Vector3(0, 0, 0)
 
 func _ready():
-	cam_base = get_tree().get_root().get_node("main/cam_base")
+	cam_base = get_parent().get_node("cam_base")
 	set_fixed_process(true)
 
 func _fixed_process(delta):

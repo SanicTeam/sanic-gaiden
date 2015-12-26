@@ -46,9 +46,3 @@ func _fixed_process(delta):
 			break
 
 		attempts -= 1
-
-func _enter_tree():
-	pass#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
-func _exit_tree():
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

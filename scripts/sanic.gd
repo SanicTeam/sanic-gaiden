@@ -93,6 +93,7 @@ func _fixed_process(delta):
 	
 	var attempts = 4
 
+	on_ground = false
 	while(is_colliding() and attempts > 0):
 		var norm = get_collision_normal()
 		

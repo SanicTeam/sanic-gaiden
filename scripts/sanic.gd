@@ -23,6 +23,7 @@ func _ready():
 
 func _fixed_process(delta):
 	var acceleration = Vector3(0, 0, 0)
+	var friction = FRICTION_CONST
 	
 	# Input map values
 	var up = Input.is_action_pressed("ui_up")
@@ -57,6 +58,11 @@ func _fixed_process(delta):
 	# Rotate the XZ acceleration so that it lines up with the camera
 	acceleration = acceleration.rotated(Y_VEC, cam_base.get_rotation().y)
 	
+	# If not touching the ground, apply the acceleration less
+	if !on_ground:
+		friction /= 2
+		acceleration /= 2
+	
 	# If the player is accelerating the character, change the rotation to match
 	# the player's intent
 	if acceleration.length_squared():
@@ -64,7 +70,7 @@ func _fixed_process(delta):
 	# If the player isn't applying acceleration, apply friction
 	else:
 		var neg_xz_velocity = velocity*Vector3(-1, 0, -1)
-		var friction_speed = min(FRICTION_CONST*delta, neg_xz_velocity.length())
+		var friction_speed = min(friction*delta, neg_xz_velocity.length())
 		velocity += neg_xz_velocity.normalized()*friction_speed
 	
 	# Apply gravity to the acceleration

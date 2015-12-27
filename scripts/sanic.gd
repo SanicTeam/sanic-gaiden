@@ -8,7 +8,7 @@ const JUMP_SPEED = 10
 const Y_VEC = Vector3(0, -1, 0)
 
 const ACCEL_SPEED = 30
-const FRICTION_CONST = 1
+const FRICTION_CONST = 25
 
 var cam_base
 
@@ -61,6 +61,11 @@ func _fixed_process(delta):
 	# the player's intent
 	if acceleration.length_squared():
 		set_rotation(Vector3(0, atan2(acceleration.x, acceleration.z), 0))
+	# If the player isn't applying acceleration, apply friction
+	else:
+		var neg_xz_velocity = velocity*Vector3(-1, 0, -1)
+		var friction_speed = min(FRICTION_CONST*delta, neg_xz_velocity.length())
+		velocity += neg_xz_velocity.normalized()*friction_speed
 	
 	# Apply gravity to the acceleration
 	acceleration += GRAVITY

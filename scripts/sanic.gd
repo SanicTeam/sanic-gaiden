@@ -10,7 +10,12 @@ const Y_VEC = Vector3(0, -1, 0)
 const ACCEL_SPEED = 30
 const FRICTION_CONST = 25
 
+const AIR_THRESHOLD = 5
+
+var air_timer = 0
+
 var cam_base
+var animations
 
 var velocity = Vector3(0, 0, 0)
 
@@ -19,6 +24,7 @@ var jump_held = false
 
 func _ready():
 	cam_base = get_parent().get_node("cam_base")
+	animations = get_node("animations")
 	set_fixed_process(true)
 
 func _fixed_process(delta):
@@ -72,6 +78,16 @@ func _fixed_process(delta):
 		var neg_xz_velocity = velocity*Vector3(-1, 0, -1)
 		var friction_speed = min(friction*delta, neg_xz_velocity.length())
 		velocity += neg_xz_velocity.normalized()*friction_speed
+	
+	if on_ground and acceleration.length_squared():
+		air_timer = AIR_THRESHOLD
+		if !animations.get_current_animation() == "walk":
+			animations.play("walk", 0.5, 1.5)
+	else:
+		if air_timer:
+			air_timer -= 1
+		elif !animations.get_current_animation() == "standing":
+			animations.play("standing", 0.5)
 	
 	# Apply gravity to the acceleration
 	acceleration += GRAVITY

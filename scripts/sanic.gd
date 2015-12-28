@@ -18,6 +18,7 @@ var cam_base
 var animations
 
 var velocity = Vector3(0, 0, 0)
+var destination_rotation = 0
 
 var on_ground = false
 var jump_held = false
@@ -72,7 +73,7 @@ func _fixed_process(delta):
 	# If the player is accelerating the character, change the rotation to match
 	# the player's intent
 	if acceleration.length_squared():
-		set_rotation(Vector3(0, atan2(acceleration.x, acceleration.z), 0))
+		destination_rotation = atan2(acceleration.x, acceleration.z)
 	# If the player isn't applying acceleration, apply friction
 	else:
 		var neg_xz_velocity = velocity*Vector3(-1, 0, -1)
@@ -88,6 +89,22 @@ func _fixed_process(delta):
 			air_timer -= 1
 		elif !animations.get_current_animation() == "standing":
 			animations.play("standing", 0.5)
+	
+	# Rotation easing
+	var current_rotation = get_rotation().y
+	# This is necessary because when the rotation is less than -PI/2 or greater
+	# than PI/2, get_rotation() switches to an alternate representation where
+	# the X and Z rotations are -PI. Since we're working only with the Y rotation,
+	# we need to adjust Y when this happens to arrive at an unambiguous
+	# representation of the direction.
+	if get_rotation().x != 0:
+		current_rotation = PI*sign(current_rotation) - current_rotation
+	var rotation_distance = destination_rotation - current_rotation
+	# If the rotation distance is larger than PI, subtract 2*PI from the distance
+	# to get the most efficient route
+	if abs(rotation_distance) > PI:
+		rotation_distance = (abs(rotation_distance) - 2*PI)*sign(rotation_distance)
+	rotate_y(-rotation_distance*5*delta)
 	
 	# Apply gravity to the acceleration
 	acceleration += GRAVITY

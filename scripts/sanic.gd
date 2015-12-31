@@ -3,7 +3,7 @@ extends KinematicBody
 
 const MAX_SPEED = 10
 const GRAVITY = Vector3(0, -9.8*2, 0)
-const MAX_SLOPE_ANGLE = deg2rad(30)
+const MAX_SLOPE_ANGLE = deg2rad(45)
 const JUMP_SPEED = 10
 const Y_VEC = Vector3(0, -1, 0)
 

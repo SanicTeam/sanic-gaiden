@@ -25,7 +25,7 @@ var jump_held = false
 
 func _ready():
 	cam_base = get_parent().get_node("cam_base")
-	animations = get_node("animations")
+	animations = get_node("sanic_model/AnimationPlayer")
 	set_fixed_process(true)
 
 func _fixed_process(delta):

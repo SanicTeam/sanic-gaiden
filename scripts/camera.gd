@@ -1,8 +1,8 @@
 extends Spatial
 
 
-const SPEED = 5
-const GRAVITY = -9.8
+const MAX_CAM_PITCH = deg2rad(21)
+const MIN_CAM_PITCH = deg2rad(-78)
 
 var camera
 var sanic
@@ -35,6 +35,7 @@ func _input(event):
 
 		var diffMousePos = currentMousePos - lastMousePos
 		destinationRotation -= diffMousePos/500
+		destinationRotation.y = min(MAX_CAM_PITCH, max(MIN_CAM_PITCH, destinationRotation.y))
 	elif event.is_action_released("ui_cancel"):
 		get_tree().quit()
 

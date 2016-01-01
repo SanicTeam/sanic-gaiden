@@ -12,7 +12,8 @@ const FRICTION_CONST = 25
 
 const AIR_THRESHOLD = 5
 
-var air_timer = 0
+var air_timer
+var air_timeout = true
 
 var cam_base
 var animations
@@ -26,6 +27,7 @@ var jump_held = false
 func _ready():
 	cam_base = get_parent().get_node("cam_base")
 	animations = get_node("sanic_model/AnimationPlayer")
+	air_timer = get_parent().get_node("air_timer")
 	set_fixed_process(true)
 
 func _fixed_process(delta):
@@ -81,13 +83,12 @@ func _fixed_process(delta):
 		velocity += neg_xz_velocity.normalized()*friction_speed
 	
 	if on_ground and acceleration.length_squared():
-		air_timer = AIR_THRESHOLD
+		air_timer.start()
+		air_timeout = false
 		if !animations.get_current_animation() == "walk":
 			animations.play("walk", 0.5, 1.5)
 	else:
-		if air_timer:
-			air_timer -= 1
-		elif !animations.get_current_animation() == "standing":
+		if air_timeout and !animations.get_current_animation() == "standing":
 			animations.play("standing", 0.5)
 	
 	# Rotation easing
@@ -144,3 +145,6 @@ func _fixed_process(delta):
 			break
 
 		attempts -= 1
+
+func _on_air_timer_timeout():
+	air_timeout = true

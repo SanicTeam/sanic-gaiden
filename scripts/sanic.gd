@@ -61,6 +61,7 @@ func _fixed_process(delta):
 			velocity.y = JUMP_SPEED
 			jump_held = true
 			on_ground = false
+			air_timeout = true
 	else:
 		jump_held = false
 	
@@ -82,15 +83,6 @@ func _fixed_process(delta):
 		var friction_speed = min(friction*delta, neg_xz_velocity.length())
 		velocity += neg_xz_velocity.normalized()*friction_speed
 	
-	if on_ground and acceleration.length_squared():
-		air_timer.start()
-		air_timeout = false
-		if !animations.get_current_animation() == "walk":
-			animations.play("walk", 0.5, 1.5)
-	else:
-		if air_timeout and !animations.get_current_animation() == "standing":
-			animations.play("standing", 0.5)
-	
 	# Rotation easing
 	var current_rotation = get_rotation().y
 	# This is necessary because when the rotation is less than -PI/2 or greater
@@ -106,6 +98,9 @@ func _fixed_process(delta):
 	if abs(rotation_distance) > PI:
 		rotation_distance = (abs(rotation_distance) - 2*PI)*sign(rotation_distance)
 	rotate_y(-rotation_distance*5*delta)
+	
+	# This info is useful for animation decisions
+	var xz_acceleration = acceleration
 	
 	# Apply gravity to the acceleration
 	acceleration += GRAVITY
@@ -145,6 +140,23 @@ func _fixed_process(delta):
 			break
 
 		attempts -= 1
+	
+	# Figure out what the animation state should be
+	if on_ground:
+		air_timeout = false
+		
+		if xz_acceleration.length_squared() < 0.3:
+			set_animation("standing", 0.4)
+		else:
+			air_timer.start()
+			set_animation("walk", 0.3, 1.5)
+	else:
+		if air_timeout:
+			set_animation("jump", 0.5, 0.8)
+
+func set_animation(name, blend=-1, speed=1):
+	if !animations.get_current_animation() == name:
+		animations.play(name, blend, speed)
 
 func _on_air_timer_timeout():
 	air_timeout = true

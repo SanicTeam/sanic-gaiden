@@ -1,2 +1,4 @@
 *.dae filter=lfs diff=lfs merge=lfs -text
 *.tex filter=lfs diff=lfs merge=lfs -text
+*.blend filter=lfs diff=lfs merge=lfs -text
+assets/*.scn filter=lfs diff=lfs merge=lfs -text

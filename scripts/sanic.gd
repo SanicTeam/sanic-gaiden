@@ -1,6 +1,5 @@
 extends KinematicBody
 
-
 const MAX_SPEED = 10
 const GRAVITY = Vector3(0, -9.8*2, 0)
 const MAX_SLOPE_ANGLE = deg2rad(45)
@@ -28,6 +27,7 @@ func _ready():
 	cam_base = get_parent().get_node("cam_base")
 	animations = get_node("sanic_model/AnimationPlayer")
 	air_timer = get_parent().get_node("air_timer")
+	globals = get_tree().get_root().get_node("globals")
 	set_fixed_process(true)
 
 func _fixed_process(delta):

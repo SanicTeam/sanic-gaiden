@@ -27,7 +27,6 @@ func _ready():
 	cam_base = get_parent().get_node("cam_base")
 	animations = get_node("sanic_model/AnimationPlayer")
 	air_timer = get_parent().get_node("air_timer")
-	globals = get_tree().get_root().get_node("globals")
 	set_fixed_process(true)
 
 func _fixed_process(delta):
@@ -121,7 +120,7 @@ func _fixed_process(delta):
 	var motion = move(velocity*delta)
 	
 	var attempts = 4
-
+	
 	on_ground = false
 	while(is_colliding() and attempts > 0):
 		var norm = get_collision_normal()
@@ -135,10 +134,10 @@ func _fixed_process(delta):
 		motion = norm.slide(motion)
 		velocity = norm.slide(velocity)
 		motion = move(motion)
-
+		
 		if motion.length() < 0.001:
 			break
-
+		
 		attempts -= 1
 	
 	# Figure out what the animation state should be

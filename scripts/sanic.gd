@@ -1,6 +1,5 @@
 extends KinematicBody
 
-
 const MAX_SPEED = 10
 const GRAVITY = Vector3(0, -9.8*2, 0)
 const MAX_SLOPE_ANGLE = deg2rad(45)
@@ -121,7 +120,7 @@ func _fixed_process(delta):
 	var motion = move(velocity*delta)
 	
 	var attempts = 4
-
+	
 	on_ground = false
 	while(is_colliding() and attempts > 0):
 		var norm = get_collision_normal()
@@ -135,10 +134,10 @@ func _fixed_process(delta):
 		motion = norm.slide(motion)
 		velocity = norm.slide(velocity)
 		motion = move(motion)
-
+		
 		if motion.length() < 0.001:
 			break
-
+		
 		attempts -= 1
 	
 	# Figure out what the animation state should be

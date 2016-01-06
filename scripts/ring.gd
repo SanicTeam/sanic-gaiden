@@ -12,7 +12,10 @@ func _fixed_process(delta):
 
 func _on_ring_body_enter(body):
 	if not taken and body extends preload("res://scripts/sanic.gd"):
+		get_node("animation").play("collect")
 		globals.set_rings(globals.get_rings() + 1)
-		#queue_free()
-		hide()
 		taken = true
+
+func _on_animation_finished():
+	queue_free()
+	hide()

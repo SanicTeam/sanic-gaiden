@@ -124,16 +124,23 @@ func _fixed_process(delta):
 	on_ground = false
 	while(is_colliding() and attempts > 0):
 		var norm = get_collision_normal()
-		
+		var current_on_ground = false
 		if (acos(norm.dot(Vector3(0, 1, 0))) < MAX_SLOPE_ANGLE):
 			# If angle to the "up" vectors is < angle tolerance,
 			# char is on floor
 			#floor_velocity = get_collider_velocity()
 			on_ground = true
+			current_on_ground = true
+		
+		var multiplier = 1
+		var collider = get_collider()
+		if collider.is_type("RigidBody") and not current_on_ground:
+			collider.set_linear_velocity(velocity)
+			multiplier = 0.5
 		
 		motion = norm.slide(motion)
 		velocity = norm.slide(velocity)
-		motion = move(motion)
+		motion = move(motion)*multiplier
 		
 		if motion.length() < 0.001:
 			break

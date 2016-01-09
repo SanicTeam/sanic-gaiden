@@ -2,5 +2,7 @@
 *.tex filter=lfs diff=lfs merge=lfs -text
 *.blend filter=lfs diff=lfs merge=lfs -text
 assets/models/sanic/sanic.scn filter=lfs diff=lfs merge=lfs -text
-assets/models/ring/ring_model.scn filter=lfs diff=lfs merge=lfs -text
+*_model.scn filter=lfs diff=lfs merge=lfs -text
 *.ogg filter=lfs diff=lfs merge=lfs -text
+*.xcf filter=lfs diff=lfs merge=lfs -text
+*.png filter=lfs diff=lfs merge=lfs -text

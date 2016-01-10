@@ -15,6 +15,7 @@ func _on_ring_body_enter(body):
 		get_node("animation").play("collect")
 		globals.set_rings(globals.get_rings() + 1)
 		taken = true
+		get_node("sounds").play("ring")
 
 func _on_animation_finished():
 	queue_free()

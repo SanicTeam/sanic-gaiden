@@ -61,6 +61,7 @@ func _fixed_process(delta):
 			jump_held = true
 			on_ground = false
 			air_timeout = true
+			get_node("sounds").play("jump")
 	else:
 		jump_held = false
 	

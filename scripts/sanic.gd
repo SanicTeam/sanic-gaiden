@@ -137,6 +137,13 @@ func _fixed_process(delta):
 		if collider.is_type("RigidBody") and not current_on_ground:
 			collider.set_linear_velocity(velocity)
 			multiplier = 0.5
+			
+			# If the object is a basketball, play the basketball bounce noise
+			if collider.has_node("basketball_model"):
+				var basketball_sound = collider.get_node("sounds")
+				var target_volume = -20 + velocity.length()*2
+				basketball_sound.get_sample_library().sample_set_volume_db("basketball_bounce", target_volume)
+				basketball_sound.play("basketball_bounce")
 		
 		motion = norm.slide(motion)
 		velocity = norm.slide(velocity)

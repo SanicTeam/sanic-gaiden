@@ -25,7 +25,7 @@ func _process(delta):
 	currentRotation += diffRotation
 	set_rotation(Vector3(0, currentRotation.x, 0))
 	camera.set_rotation(Vector3(currentRotation.y, 0, 0))
-	set_translation(get_translation().linear_interpolate(sanic.get_translation(), 4*delta))
+	set_translation(get_translation().linear_interpolate(sanic.get_translation(), 6*delta))
 
 func _input(event):
 	if event.type==InputEvent.MOUSE_MOTION:

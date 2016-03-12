@@ -128,8 +128,7 @@ func _fixed_process(delta):
 		var current_on_ground = false
 		if (acos(norm.dot(Vector3(0, 1, 0))) < MAX_SLOPE_ANGLE):
 			# If angle to the "up" vectors is < angle tolerance,
-			# char is on floor
-			#floor_velocity = get_collider_velocity()
+			# the character is on floor
 			on_ground = true
 			current_on_ground = true
 		

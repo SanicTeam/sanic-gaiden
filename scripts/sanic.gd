@@ -7,7 +7,7 @@ const JUMP_SPEED = 10
 const Y_VEC = Vector3(0, -1, 0)
 
 const ACCEL_SPEED = 40
-const FRICTION_CONST = 25
+const FRICTION_CONST = 35
 
 const AIR_THRESHOLD = 5
 

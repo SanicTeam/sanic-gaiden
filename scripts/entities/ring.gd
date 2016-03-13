@@ -11,7 +11,7 @@ func _fixed_process(delta):
 	rotate_y(PI / 60)
 
 func _on_ring_body_enter(body):
-	if not taken and body extends preload("res://scripts/sanic.gd"):
+	if not taken and body extends preload("res://scripts/player/sanic.gd"):
 		get_node("animation").play("collect")
 		globals.set_rings(globals.get_rings() + 1)
 		taken = true

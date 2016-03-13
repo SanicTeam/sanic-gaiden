@@ -1,3 +1,5 @@
+# This script takes care of rotating the camera system and following the player.
+
 extends Spatial
 
 
@@ -29,7 +31,7 @@ func _process(delta):
 
 func _input(event):
 	if event.type==InputEvent.MOUSE_MOTION:
-		# Handle player rotation
+		# Handle camera rotation
 		lastMousePos = currentMousePos
 		currentMousePos = event.pos
 

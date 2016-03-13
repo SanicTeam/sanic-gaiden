@@ -1,4 +1,7 @@
+# This script moves the camera so that it's always visible and prevents most wall clipping.
+
 extends Spatial
+
 
 const MAX_RAY_LENGTH = 5
 

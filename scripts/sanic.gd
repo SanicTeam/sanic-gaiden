@@ -111,13 +111,13 @@ func _fixed_process(delta):
 	# Break down the velocity vector into XZ and Y components
 	var xz_velocity = velocity*Vector3(1, 0, 1)
 	var y_velocity = velocity*Vector3(0, 1, 0)
-	# Calculate the speed of the XZ component, applying the max speed
+	# Calculate the speed of the XZ component, applying the max speed.
 	var xz_speed = min(xz_velocity.length(), MAX_SPEED)
 	# Reconstruct the velocity vector with the max speed applied to the XZ
-	# component
+	# component.
 	velocity = xz_velocity.normalized()*xz_speed + y_velocity
 	
-	# Displace the player by the velocity
+	# Displace the player by the velocity.
 	var motion = move(velocity*delta)
 	
 	var attempts = 4
@@ -125,26 +125,35 @@ func _fixed_process(delta):
 	on_ground = false
 	while(is_colliding() and attempts > 0):
 		var norm = get_collision_normal()
-		var current_on_ground = false
+		var current_colliding_ground = false
 		if (acos(norm.dot(Vector3(0, 1, 0))) < MAX_SLOPE_ANGLE):
 			# If angle to the "up" vectors is < angle tolerance,
 			# the character is on floor
 			on_ground = true
-			current_on_ground = true
+			
+			# current_colliding_ground signifies that the current object being detected by the
+			# collider should be treated like ground, and therefore not have it's velocity
+			# unfluenced.
+			current_colliding_ground = true
 		
-		var multiplier = 1
+		var multiplier = 1 
 		var collider = get_collider()
-		if collider.is_type("RigidBody") and not current_on_ground:
+		# If we're colliding with a RigidBody that we're not standing on, we're bumping into
+		# it and should affect it's velocity.
+		if collider.is_type("RigidBody") and not current_colliding_ground:
 			collider.set_linear_velocity(velocity)
 			multiplier = 0.5
 			
-			# If the object is a basketball, play the basketball bounce noise
+			# If the RigidBody is a basketball, play the basketball bounce noise at a volume
+			# linearly proportional to our speed.
 			if collider.has_node("basketball_model"):
 				var basketball_sound = collider.get_node("sounds")
 				var target_volume = -20 + velocity.length()*2
 				basketball_sound.get_sample_library().sample_set_volume_db("basketball_bounce", target_volume)
 				basketball_sound.play("basketball_bounce")
 		
+		if current_colliding_ground and xz_velocity.length() < MAX_SPEED*0.9:
+			motion.y = 0
 		motion = norm.slide(motion)
 		velocity = norm.slide(velocity)
 		motion = move(motion)*multiplier

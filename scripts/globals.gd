@@ -1,4 +1,7 @@
+# This script manages global state.
+
 extends Node
+
 
 var score = 0
 var timeMin = 0
@@ -79,11 +82,16 @@ func resume():
 	paused = false
 
 func set_scene(scene):
-	#clean up the current level
+	# Clean up the current level
 	level.queue_free()
-	#load the file passed in as the param "scene"
+	# Load the file passed in as the param "scene"
 	var s = ResourceLoader.load(scene)
-	#create an instance of our scene
+	# Create an instance of our scene
 	level = s.instance()
-	# add scene to main
+	# Add scene to main
 	get_tree().get_root().get_node("main").add_child(level)
+
+# A "camera system" is simply a node that represents the transform of the 3D camera.
+# The player object has a camera system.
+func set_camera_system(node):
+	get_tree().get_root().get_node("main/cam").set_camera_system(node)

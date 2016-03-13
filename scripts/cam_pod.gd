@@ -1,9 +1,10 @@
-# This script moves the camera so that it's always visible and prevents most wall clipping.
+# This script moves the camera so that most wall clipping is prevented and the
+# player is always visible.
 
 extends Spatial
 
 
-const MAX_RAY_LENGTH = 5
+const MAX_RAY_LENGTH = 4.8
 
 var ray
 
@@ -23,8 +24,9 @@ func _fixed_process(delta):
 		# Set the position to the ray's collision point
 		global_translate(ray.get_collision_point() - get_global_transform().origin)
 		
-		# Make sure that only the Z change is applied
-		set_translation(get_translation()*Vector3(0, 0, 1))
+		# Make sure that only the Z change is applied; 0.94 is used here to make the ray collision
+		# less ambiguous and prevent camera jiggling
+		set_translation(get_translation()*Vector3(0, 0, 0.94))
 		reset_ray()
 		
 		# Limit how close the camera can move (-MAX_RAY_LENGTH)
@@ -35,3 +37,6 @@ func reset_ray():
 	var trans = Vector3(0, 0, -MAX_RAY_LENGTH - get_translation().z)
 	ray.set_cast_to(-trans)
 	ray.set_translation(trans)
+
+func get_camera_compress():
+	return -ray.get_translation().z

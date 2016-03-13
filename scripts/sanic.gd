@@ -15,6 +15,7 @@ var air_timer
 var air_timeout = true
 
 var cam_base
+var sanic_model
 var animations
 
 var velocity = Vector3(0, 0, 0)
@@ -25,7 +26,8 @@ var jump_held = false
 
 func _ready():
 	cam_base = get_parent().get_node("cam_base")
-	animations = get_node("sanic_model/AnimationPlayer")
+	sanic_model = get_node("sanic_model")
+	animations = sanic_model.get_node("AnimationPlayer")
 	air_timer = get_parent().get_node("air_timer")
 	set_fixed_process(true)
 
@@ -98,6 +100,9 @@ func _fixed_process(delta):
 	if abs(rotation_distance) > PI:
 		rotation_distance = (abs(rotation_distance) - 2*PI)*sign(rotation_distance)
 	rotate_y(-rotation_distance*5*delta)
+	# Make the player model lean into turns.
+	var current_model_lean = sanic_model.get_rotation().z
+	sanic_model.set_rotation(Vector3(0, 0, lerp(current_model_lean, -rotation_distance/7, 0.4)))
 	
 	# This info is useful for animation decisions
 	var xz_acceleration = acceleration
@@ -123,6 +128,7 @@ func _fixed_process(delta):
 	var attempts = 4
 	
 	on_ground = false
+	# Loop through and check for collisions multiple times
 	while(is_colliding() and attempts > 0):
 		var norm = get_collision_normal()
 		var current_colliding_ground = false

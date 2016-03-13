@@ -1,6 +1,6 @@
 extends Spatial
 
-const MAX_RAY_LENGTH = 4.5
+const MAX_RAY_LENGTH = 5
 
 var ray
 

@@ -14,3 +14,7 @@ func _process(delta):
 
 func set_camera_system(node):
 	cam_system = node
+
+func remove_camera_system(node):
+	if cam_system == node:
+		cam_system = null

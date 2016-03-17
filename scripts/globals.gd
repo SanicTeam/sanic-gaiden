@@ -10,12 +10,15 @@ var timeMSec = 0
 var rings = 0
 var lives = 3
 
+var camera
+
 var level = null
 
 var paused = false
 
 func _ready():
 	level = get_tree().get_root().get_node("main/level")
+	camera = get_tree().get_root().get_node("main/cam")
 	set_fixed_process(true)
 
 func _fixed_process(delta):
@@ -95,3 +98,6 @@ func set_scene(scene):
 # The player object has a camera system.
 func set_camera_system(node):
 	get_tree().get_root().get_node("main/cam").set_camera_system(node)
+
+func remove_camera_system(node):
+	get_tree().get_root().get_node("main/cam").remove_camera_system(node)

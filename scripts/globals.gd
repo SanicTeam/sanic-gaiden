@@ -4,9 +4,7 @@ extends Node
 
 
 var score = 0
-var timeMin = 0
-var timeSec = 0
-var timeMSec = 0
+var time = 0
 var rings = 0
 
 var camera
@@ -22,36 +20,28 @@ func _ready():
 
 func _fixed_process(delta):
 	if not paused:
-		timeMSec += delta
-		if timeMSec >= 1:
-			timeMSec -= 1
-			timeSec += 1
-			if timeSec >= 60:
-				timeSec -= 60
-				timeMin += 1
+		time += delta
+	
 	if(Input.is_action_pressed("key_1")):
 		set_scene("res://levels/level.scn")
 	elif(Input.is_action_pressed("key_2")):
 		set_scene("res://levels/level2.scn")
 
 func get_time_str():
-	return str(str(timeMin).pad_zeros(2)+":"+str(timeSec).pad_zeros(2)+":"+str(floor(timeMSec*100)).pad_zeros(2))
+	# minutes, seconds, and milliseconds
+	var timeset = [int(time/60), int(time)%60, int(time*100)%100]
+	
+	var result = ""
+	for t in timeset:
+		if t != timeset[0]:
+			result += ":"
+		result += str(t).pad_zeros(2)
+		
+	return result
 
-func get_time_csec():
-	return floor(timeMSec*100)
-
-func set_time(minute, second, csec):
-	timeMin = minute
-	timeSec = second
-	if csec == 0:
-		timeMSec = 0
-	else:
-		timeMSec = csec / 100
 
 func reset_time():
-	timeMin = 0
-	timeSec = 0
-	timeMSec = 0
+	time = 0
 
 func pause():
 	paused = true

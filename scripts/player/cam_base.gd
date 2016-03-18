@@ -9,7 +9,7 @@ const MIN_CAM_PITCH = deg2rad(-78)
 var cam_pitch
 var cam_pod
 var sanic
-var lastMousePos
+var lastMousePos = null
 var currentMousePos = Vector2(0, 0)
 
 var destinationRotation = Vector2(0, 0)
@@ -38,7 +38,10 @@ func _process(delta):
 func _input(event):
 	if event.type==InputEvent.MOUSE_MOTION:
 		# Handle camera rotation
-		lastMousePos = currentMousePos
+		if lastMousePos == null:
+			lastMousePos = event.pos
+		else:
+			lastMousePos = currentMousePos
 		currentMousePos = event.pos
 
 		var diffMousePos = currentMousePos - lastMousePos
@@ -49,6 +52,3 @@ func _input(event):
 
 func _enter_tree():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
-func _exit_tree():
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

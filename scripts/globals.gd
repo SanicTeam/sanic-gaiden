@@ -60,14 +60,15 @@ func resume():
 	paused = false
 
 func set_scene(scene):
-	# Clean up the current level
-	level.queue_free()
+	# Clean up the current level if it's initialized
+	if level != null:
+		level.queue_free()
 	# Load the file passed in as the param "scene"
 	var s = ResourceLoader.load(scene)
 	# Create an instance of our scene
 	level = s.instance()
 	# Add scene to main
-	get_tree().get_root().get_node("main").add_child(level)
+	get_tree().get_root().get_node("main/scenes").add_child(level)
 
 # A "camera system" is simply a node that represents the transform of the 3D camera.
 # The player object has a camera system.

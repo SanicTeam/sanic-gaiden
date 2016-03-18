@@ -14,6 +14,6 @@ func _ready():
 	set_fixed_process(true)
 
 func _fixed_process(delta):
-	scoreLabel.set_text("Score: " + str(globals.get_score()))
+	scoreLabel.set_text("Score: " + str(globals.score))
 	timeLabel.set_text("Time: " + globals.get_time_str())
-	ringsLabel.set_text("Rings: " + str(globals.get_rings()))
+	ringsLabel.set_text("Rings: " + str(globals.rings))

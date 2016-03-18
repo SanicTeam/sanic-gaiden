@@ -8,7 +8,6 @@ var timeMin = 0
 var timeSec = 0
 var timeMSec = 0
 var rings = 0
-var lives = 3
 
 var camera
 
@@ -35,20 +34,8 @@ func _fixed_process(delta):
 	elif(Input.is_action_pressed("key_2")):
 		set_scene("res://levels/level2.scn")
 
-func get_score():
-	return score
-
-func set_score(value):
-	score = value
-
 func get_time_str():
 	return str(str(timeMin).pad_zeros(2)+":"+str(timeSec).pad_zeros(2)+":"+str(floor(timeMSec*100)).pad_zeros(2))
-
-func get_time_min():
-	return timeMin
-
-func get_time_sec():
-	return timeSec
 
 func get_time_csec():
 	return floor(timeMSec*100)
@@ -65,18 +52,6 @@ func reset_time():
 	timeMin = 0
 	timeSec = 0
 	timeMSec = 0
-
-func get_rings():
-	return rings
-
-func set_rings(value):
-	rings = value
-
-func get_lives():
-	return lives
-
-func set_lives(value):
-	lives = value
 
 func pause():
 	paused = true

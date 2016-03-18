@@ -14,8 +14,8 @@ var level = null
 var paused = false
 
 func _ready():
-	level = get_tree().get_root().get_node("main/level")
 	camera = get_tree().get_root().get_node("main/cam")
+	set_scene("res://levels/level.scn")
 	set_fixed_process(true)
 
 func _fixed_process(delta):
@@ -38,7 +38,6 @@ func get_time_str():
 		result += str(t).pad_zeros(2)
 		
 	return result
-
 
 func reset_time():
 	time = 0

@@ -12,12 +12,14 @@ var cam_system_look = null
 var cam_system_lerp = 1
 var look_position = -FORWARD
 
+var transition_speed = 0.5
+
 func _ready():
 	cam = get_node("Camera")
 	set_process(true)
 
 func _process(delta):
-	cam_system_lerp = min(1, cam_system_lerp + 0.5*delta)
+	cam_system_lerp = min(1, cam_system_lerp + transition_speed*delta)
 	
 	# If there's a camera system set, snap/ease the camera to it.
 	if cam_system != null:
@@ -28,10 +30,11 @@ func _process(delta):
 		look_position = look_position.linear_interpolate(cam_system_look.get_global_transform().origin, cam_system_lerp)
 		cam.look_at(look_position, UP)
 
-func set_camera_system(cam_pos, look_pos):
+func set_camera_system(cam_pos, look_pos, speed=0.5):
 	cam_system = cam_pos
 	cam_system_look = look_pos
 	cam_system_lerp = 0
+	transition_speed = speed
 
 func get_camera_system():
 	return {'pos': cam_system, 'look': cam_system_look}

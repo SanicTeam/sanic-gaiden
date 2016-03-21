@@ -43,7 +43,7 @@ func _on_Area_body_exit_shape( body_id, body, body_shape, area_shape ):
 func take_camera():
 	previous_cam_system = globals.camera.get_camera_system()
 	
-	globals.camera.set_camera_system(cam_dest, cam_look_dest)
+	globals.camera.set_camera_system(cam_dest, cam_look_dest, 0.08)
 
 func release_camera():
 	var cam_base = previous_cam_system.pos.get_parent().get_parent().get_parent().get_parent()

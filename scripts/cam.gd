@@ -34,12 +34,20 @@ func remove_camera_system(cam_pos):
 		cam_system = null
 		cam_system_look = null
 
+func get_global_look():
+	return cam_system_look.get_global_transform().origin - cam_system.get_global_transform().origin
+
 func get_global_yaw():
 	if cam_system == null:
 		return 0
 	
-	var look = cam_system_look.get_global_transform().origin - cam_system.get_global_transform().origin
-	var right = look.cross(UP).normalized()
+	var right = get_global_look().cross(UP).normalized()
 	var forward = right.cross(UP)
 	
 	return acos(RIGHT.dot(forward))*sign(forward.x)
+
+func get_global_pitch():
+	if cam_system == null:
+		return 0
+	
+	return get_global_look().normalized().rotated(UP, -get_global_yaw()).x

@@ -27,8 +27,8 @@ func _ready():
 func _process(delta):
 	var diffRotation = (destinationRotation - currentRotation)*15*delta
 	currentRotation += diffRotation
-	set_rotation(Vector3(0, currentRotation.x, 0))
-	cam_pitch.set_rotation(Vector3(currentRotation.y, 0, 0))
+	
+	apply_rotation()
 	
 	# Make the camera movement more stiff when it's closer to the player
 	var lerp_multiplier = 16 - cam_pod.get_camera_compress()*2
@@ -49,6 +49,16 @@ func _input(event):
 		destinationRotation.y = min(MAX_CAM_PITCH, max(MIN_CAM_PITCH, destinationRotation.y))
 	elif event.is_action_released("ui_cancel"):
 		get_tree().quit()
+
+func apply_rotation():
+	set_rotation(Vector3(0, currentRotation.x, 0))
+	cam_pitch.set_rotation(Vector3(currentRotation.y, 0, 0))
+
+func reset_rotation(rot):
+	destinationRotation = rot
+	currentRotation = destinationRotation
+	
+	apply_rotation()
 
 func _enter_tree():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

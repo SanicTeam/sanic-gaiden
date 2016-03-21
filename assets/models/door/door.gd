@@ -60,4 +60,9 @@ func take_camera():
 	globals.camera.set_camera_system(cam_pos, cam_look_pos)
 
 func release_camera():
+	var cam_base = previous_cam_system.pos.get_parent().get_parent().get_parent().get_parent()
+	
+	var new_rotation = Vector2(globals.camera.get_global_yaw(), globals.camera.get_global_pitch()/2)
+	cam_base.reset_rotation(new_rotation)
+	
 	globals.camera.set_camera_system(previous_cam_system.pos, previous_cam_system.look)

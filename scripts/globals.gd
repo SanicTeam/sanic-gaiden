@@ -15,7 +15,7 @@ var paused = false
 
 func _ready():
 	camera = get_tree().get_root().get_node("main/cam")
-	set_scene("res://levels/level.scn")
+	set_scene("res://levels/test_level0.scn")
 	set_fixed_process(true)
 
 func _fixed_process(delta):
@@ -23,9 +23,9 @@ func _fixed_process(delta):
 		time += delta
 	
 	if(Input.is_action_pressed("key_1")):
-		set_scene("res://levels/level.scn")
+		set_scene("res://levels/test_level0.scn")
 	elif(Input.is_action_pressed("key_2")):
-		set_scene("res://levels/level2.scn")
+		set_scene("res://levels/test_level1.scn")
 
 func get_time_str():
 	# minutes, seconds, and milliseconds

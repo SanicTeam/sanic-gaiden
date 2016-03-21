@@ -26,7 +26,7 @@ func _on_Area_body_enter_shape( body_id, body, body_shape, area_shape ):
 			animations.play("Double Opening", -1)
 			animations.seek(pos)
 		elif area_shape == 1: # Loading zone
-			globals.set_scene("res://levels/level2.scn")
+			globals.set_scene("res://levels/test_level1.scn")
 		elif area_shape == 2: # Camera zone
 			take_camera()
 

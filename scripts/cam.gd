@@ -2,6 +2,7 @@
 extends Spatial
 
 const UP = Vector3(0, 1, 0)
+const RIGHT = Vector3(0, 0, 1)
 
 var cam
 
@@ -41,4 +42,4 @@ func get_global_yaw():
 	var right = look.cross(UP).normalized()
 	var forward = right.cross(UP)
 	
-	return acos(Vector3(0, 0, 1).dot(forward))*sign(forward.x)
+	return acos(RIGHT.dot(forward))*sign(forward.x)

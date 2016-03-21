@@ -32,3 +32,13 @@ func remove_camera_system(cam_pos):
 	if cam_system == cam_pos:
 		cam_system = null
 		cam_system_look = null
+
+func get_global_yaw():
+	if cam_system == null:
+		return 0
+	
+	var look = cam_system_look.get_global_transform().origin - cam_system.get_global_transform().origin
+	var right = look.cross(UP).normalized()
+	var forward = right.cross(UP)
+	
+	return acos(Vector3(0, 0, 1).dot(forward))*sign(forward.x)

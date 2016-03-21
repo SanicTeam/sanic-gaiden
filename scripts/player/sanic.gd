@@ -14,7 +14,7 @@ const AIR_THRESHOLD = 5
 var air_timer
 var air_timeout = true
 
-var cam_base
+var camera
 var sanic_model
 var animations
 
@@ -25,7 +25,7 @@ var on_ground = false
 var jump_held = false
 
 func _ready():
-	cam_base = get_parent().get_node("cam_base")
+	camera = get_tree().get_root().get_node("globals").camera
 	sanic_model = get_node("sanic_model")
 	animations = sanic_model.get_node("AnimationPlayer")
 	air_timer = get_parent().get_node("air_timer")
@@ -68,7 +68,7 @@ func _fixed_process(delta):
 		jump_held = false
 	
 	# Rotate the XZ acceleration so that it lines up with the camera
-	acceleration = acceleration.rotated(Y_VEC, cam_base.get_rotation().y)
+	acceleration = acceleration.rotated(Y_VEC, camera.get_global_yaw())
 	
 	# If not touching the ground, apply the acceleration less
 	if !on_ground:

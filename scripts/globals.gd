@@ -58,11 +58,3 @@ func set_scene(scene):
 	level = s.instance()
 	# Add scene to main
 	get_tree().get_root().get_node("main/scenes").add_child(level)
-
-# A "camera system" is simply a node that represents the transform of the 3D camera.
-# The player object has a camera system.
-func set_camera_system(node):
-	get_tree().get_root().get_node("main/cam").set_camera_system(node)
-
-func remove_camera_system(node):
-	get_tree().get_root().get_node("main/cam").remove_camera_system(node)

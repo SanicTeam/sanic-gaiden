@@ -2,8 +2,7 @@
 extends Spatial
 
 const UP = Vector3(0, 1, 0)
-const RIGHT = Vector3(0, 0, 1)
-const FORWARD = Vector3(0, 0, -1)
+const FORWARD = Vector3(0, 0, 1)
 
 var cam
 
@@ -11,7 +10,7 @@ var cam_system = null
 var cam_system_look = null
 
 var cam_system_lerp = 1
-var look_position = Vector3(0, 0, -1)
+var look_position = -FORWARD
 
 func _ready():
 	cam = get_node("Camera")
@@ -52,10 +51,10 @@ func get_global_yaw():
 	var right = get_global_look().cross(UP).normalized()
 	var forward = right.cross(UP)
 	
-	return acos(RIGHT.dot(forward))*sign(forward.x)
+	return acos(FORWARD.dot(forward))*sign(forward.x)
 
 func get_global_pitch():
 	if cam_system == null:
 		return 0
 	
-	return get_global_look().normalized().rotated(UP, -get_global_yaw()).x
+	return get_global_look().rotated(UP, -get_global_yaw()).normalized().x

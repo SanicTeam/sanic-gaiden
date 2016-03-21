@@ -16,13 +16,17 @@ func _process(delta):
 	# If there's a camera system set, snap the camera to it.
 	if cam_system != null:
 		set_global_transform(cam_system.get_global_transform())
+		set_rotation(Vector3(0, 0, 0))
 	
 	if cam_system_look != null:
-		cam.look_at(cam_system_look.get_global_transform(), UP)
+		cam.look_at(cam_system_look.get_global_transform().origin, UP)
 
-func set_camera_system(cam_pos, look_pos = null):
+func set_camera_system(cam_pos, look_pos):
 	cam_system = cam_pos
 	cam_system_look = look_pos
+
+func get_camera_system():
+	return {'pos': cam_system, 'look': cam_system_look}
 
 func remove_camera_system(cam_pos):
 	if cam_system == cam_pos:

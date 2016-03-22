@@ -10,6 +10,8 @@ var rings = 0
 var camera
 
 var player = null
+var character = null
+
 var level = null
 
 var paused = false
@@ -52,6 +54,7 @@ func resume():
 # Players are within levels and need to register themselves when they enter the scene
 func register_player(player_object):
 	player = player_object
+	character = player.get_node("character")
 
 func set_scene(scene):
 	# Clean up the current level if it's initialized
@@ -64,5 +67,5 @@ func set_scene(scene):
 	# Add scene to main
 	get_tree().get_root().get_node("main/scenes").add_child(level)
 
-func is_player(body):
-	return body extends preload("res://scripts/player/character.gd")
+func is_character(body):
+	return body == character

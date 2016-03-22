@@ -11,7 +11,7 @@ func _fixed_process(delta):
 	rotate_y(PI / 60)
 
 func _on_ring_body_enter(body):
-	if not taken and globals.is_player(body):
+	if not taken and globals.is_character(body):
 		get_node("animation").play("collect")
 		globals.rings += 1
 		taken = true

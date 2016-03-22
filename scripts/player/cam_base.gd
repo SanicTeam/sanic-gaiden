@@ -8,7 +8,7 @@ const MIN_CAM_PITCH = deg2rad(-78)
 
 var cam_pitch
 var cam_pod
-var sanic
+var character
 var lastMousePos = null
 var currentMousePos = Vector2(0, 0)
 
@@ -20,7 +20,7 @@ var velocity = Vector3(0, 0, 0)
 func _ready():
 	cam_pitch = get_node("cam_pitch")
 	cam_pod = cam_pitch.get_node("cam/cam_pod")
-	sanic = get_parent().get_node("sanic")
+	character = get_parent().get_node("character")
 	set_process_input(true)
 	set_process(true)
 
@@ -33,7 +33,7 @@ func _process(delta):
 	# Make the camera movement more stiff when it's closer to the player
 	var lerp_multiplier = 16 - cam_pod.get_camera_compress()*2
 	# Ease into the destination translation
-	set_translation(get_translation().linear_interpolate(sanic.get_translation(), lerp_multiplier*delta))
+	set_translation(get_translation().linear_interpolate(character.get_translation(), lerp_multiplier*delta))
 
 func _input(event):
 	if event.type==InputEvent.MOUSE_MOTION:

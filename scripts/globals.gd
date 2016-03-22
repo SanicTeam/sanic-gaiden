@@ -18,7 +18,7 @@ var paused = false
 
 func _ready():
 	camera = get_tree().get_root().get_node("main/cam")
-	set_scene("res://levels/test_level0.scn")
+	set_scene("test_level0")
 	set_fixed_process(true)
 
 func _fixed_process(delta):
@@ -26,9 +26,9 @@ func _fixed_process(delta):
 		time += delta
 	
 	if(Input.is_action_pressed("key_1")):
-		set_scene("res://levels/test_level0.scn")
+		set_scene("test_level0")
 	elif(Input.is_action_pressed("key_2")):
-		set_scene("res://levels/test_level1.scn")
+		set_scene("test_level1")
 
 func get_time_str():
 	# minutes, seconds, and milliseconds
@@ -61,7 +61,7 @@ func set_scene(scene):
 	if level != null:
 		level.queue_free()
 	# Load the file passed in as the param "scene"
-	var s = ResourceLoader.load(scene)
+	var s = ResourceLoader.load("res://levels/" + scene + ".scn")
 	# Create an instance of our scene
 	level = s.instance()
 	# Add scene to main

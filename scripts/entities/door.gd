@@ -19,7 +19,7 @@ func _ready():
 	animations.set_current_animation("Double Opening")
 
 func _on_Area_body_enter_shape( body_id, body, body_shape, area_shape ):
-	if body extends preload("res://scripts/player/character.gd"):
+	if globals.is_player(body):
 		if area_shape == 0: # Door open zone
 			var pos = animations.get_current_animation_pos()
 			animations.stop_all()
@@ -31,7 +31,7 @@ func _on_Area_body_enter_shape( body_id, body, body_shape, area_shape ):
 			take_camera()
 
 func _on_Area_body_exit_shape( body_id, body, body_shape, area_shape ):
-	if body extends preload("res://scripts/player/character.gd"):
+	if globals.is_player(body):
 		if area_shape == 0: # Door open zone
 			var pos = animations.get_current_animation_pos()
 			animations.stop_all()

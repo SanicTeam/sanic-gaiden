@@ -63,3 +63,6 @@ func set_scene(scene):
 	level = s.instance()
 	# Add scene to main
 	get_tree().get_root().get_node("main/scenes").add_child(level)
+
+func is_player(body):
+	return body extends preload("res://scripts/player/character.gd")

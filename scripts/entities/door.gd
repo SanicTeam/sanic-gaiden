@@ -1,7 +1,6 @@
 # The gateway to new worlds.
 extends Spatial
 
-var globals
 var animations
 
 var cam_dest
@@ -10,7 +9,6 @@ var cam_look_dest
 var previous_cam_system
 
 func _ready():
-	globals = get_tree().get_root().get_node("globals")
 	animations = get_node("door_model/AnimationPlayer")
 	
 	cam_dest = get_node("cam_dest")

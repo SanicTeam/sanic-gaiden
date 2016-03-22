@@ -1,13 +1,11 @@
 extends Node2D
 
-var globals
 var scoreLabel
 var timeLabel
 var ringsLabel
 var livesLabel
 
 func _ready():
-	globals = get_tree().get_root().get_node("globals")
 	scoreLabel = get_node("score")
 	timeLabel = get_node("time")
 	ringsLabel = get_node("rings")

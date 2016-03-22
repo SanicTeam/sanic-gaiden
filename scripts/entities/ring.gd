@@ -1,10 +1,8 @@
 extends Area
 
-var globals
 var taken = false
 
 func _ready():
-	globals = get_tree().get_root().get_node("globals")
 	set_fixed_process(true)
 
 func _fixed_process(delta):

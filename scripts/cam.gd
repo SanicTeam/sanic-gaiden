@@ -47,13 +47,13 @@ func remove_camera_system(cam_pos):
 		cam_system = null
 		cam_system_look = null
 
-func activate_player_camera():
+func activate_player_camera(speed=0.5):
 	if globals.player != null:
 		var current_rotation = Vector2(get_global_yaw(), get_global_pitch()/2)
 		globals.player.reset_camera_system_rotation(current_rotation)
 		
 		var system = globals.player.get_camera_system()
-		set_camera_system(system.pos, system.look)
+		set_camera_system(system.pos, system.look, speed)
 
 func get_global_look():
 	return cam_system_look.get_global_transform().origin - cam_system.get_global_transform().origin

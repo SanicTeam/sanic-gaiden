@@ -15,7 +15,7 @@ func _ready():
 	cam_pos = cam_pitch.get_node("cam/cam_pod/cam_pos")
 	cam_look = cam_pitch.get_node("cam/cam_pod/cam_look")
 	
-	globals.camera.activate_player_camera()
+	globals.camera.activate_player_camera(0.06)
 	reset_camera_system_rotation(Vector2(0, 0))
 	
 	var initial_cam_pos = globals.level.find_node("initial_cam_pos", false)

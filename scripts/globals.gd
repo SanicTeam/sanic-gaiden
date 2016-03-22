@@ -9,6 +9,7 @@ var rings = 0
 
 var camera
 
+var player = null
 var level = null
 
 var paused = false
@@ -47,6 +48,10 @@ func pause():
 
 func resume():
 	paused = false
+
+# Players are within levels and need to register themselves when they enter the scene
+func register_player(player_object):
+	player = player_object
 
 func set_scene(scene):
 	# Clean up the current level if it's initialized

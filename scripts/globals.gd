@@ -15,7 +15,9 @@ var level = null
 var paused = false
 
 func _ready():
-	camera = get_tree().get_root().get_node("main/cam")
+	camera = ResourceLoader.load("res://camera.scn").instance()
+	get_tree().get_root().get_node("main").add_child(camera)
+	
 	set_scene("test_level0")
 	set_fixed_process(true)
 

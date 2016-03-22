@@ -22,19 +22,22 @@ func _process(delta):
 	cam_system_lerp = min(1, cam_system_lerp + transition_speed*delta)
 	
 	# If there's a camera system set, snap/ease the camera to it.
-	if cam_system != null:
+	if cam_system != null and cam_system_look != null:
 		var new_translation = get_translation().linear_interpolate(cam_system.get_global_transform().origin, cam_system_lerp)
-		set_translation(new_translation)
-	
-	if cam_system_look != null:
-		look_position = look_position.linear_interpolate(cam_system_look.get_global_transform().origin, cam_system_lerp)
-		cam.look_at(look_position, UP)
+		var new_look_translation = look_position.linear_interpolate(cam_system_look.get_global_transform().origin, cam_system_lerp)
+		
+		reset_camera_positions(new_translation, new_look_translation)
 
 func set_camera_system(cam_pos, look_pos, speed=0.5):
 	cam_system = cam_pos
 	cam_system_look = look_pos
 	cam_system_lerp = 0
 	transition_speed = speed
+
+func reset_camera_positions(cam_pos, look_pos):
+	look_position = look_pos
+	set_translation(cam_pos)
+	cam.look_at(look_pos, UP)
 
 func get_camera_system():
 	return {'pos': cam_system, 'look': cam_system_look}

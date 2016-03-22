@@ -17,6 +17,12 @@ func _ready():
 	
 	globals.camera.activate_player_camera()
 	reset_camera_system_rotation(Vector2(0, 0))
+	
+	var initial_cam_pos = globals.level.find_node("initial_cam_pos", false)
+	var initial_cam_look = globals.level.find_node("initial_cam_look", false)
+	
+	if initial_cam_pos != null and initial_cam_look != null:
+		globals.camera.reset_camera_positions(initial_cam_pos.get_global_transform().origin, initial_cam_look.get_global_transform().origin)
 
 func get_camera_system():
 	return {"pos": cam_pos, "look": cam_look}

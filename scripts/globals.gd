@@ -1,7 +1,5 @@
 # This script manages global state.
-
 extends Node
-
 
 var score = 0
 var time = 0

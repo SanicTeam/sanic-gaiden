@@ -6,8 +6,6 @@ var animations
 var cam_dest
 var cam_look_dest
 
-var previous_cam_system
-
 func _ready():
 	animations = get_node("door_model/AnimationPlayer")
 	
@@ -39,14 +37,7 @@ func _on_Area_body_exit_shape( body_id, body, body_shape, area_shape ):
 			release_camera()
 
 func take_camera():
-	previous_cam_system = globals.camera.get_camera_system()
-	
 	globals.camera.set_camera_system(cam_dest, cam_look_dest, 0.08)
 
 func release_camera():
-	var cam_base = previous_cam_system.pos.get_parent().get_parent().get_parent().get_parent()
-	
-	var new_rotation = Vector2(globals.camera.get_global_yaw(), globals.camera.get_global_pitch()/2)
-	cam_base.reset_rotation(new_rotation)
-	
-	globals.camera.set_camera_system(previous_cam_system.pos, previous_cam_system.look)
+	globals.camera.activate_player_camera()

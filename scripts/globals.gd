@@ -21,10 +21,10 @@ var paused = false
 func _ready():
 	var main_scene = get_tree().get_root().get_node("main")
 	
-	camera = ResourceLoader.load("res://camera.scn").instance()
+	camera = ResourceLoader.load("res://scenes/camera.scn").instance()
 	main_scene.add_child(camera)
 	
-	fade = ResourceLoader.load("res://fade.scn").instance()
+	fade = ResourceLoader.load("res://scenes/fade.scn").instance()
 	main_scene.add_child(fade)
 	
 	set_scene("test_level0")
@@ -99,7 +99,7 @@ func set_scene(scene):
 	if level != null:
 		level.queue_free()
 	# Load the file passed in as the param "scene"
-	var s = ResourceLoader.load("res://levels/" + scene + ".scn")
+	var s = ResourceLoader.load("res://scenes/levels/" + scene + ".scn")
 	# Create an instance of our scene
 	level = s.instance()
 	# Add scene to main

@@ -2,7 +2,7 @@
 
 ## What?
 
-**Sanic: Step Up and Go: Gaiden** is a work-in-progress 3D action adventure platformer which takes place in the year 3278.
+**Sanic: Step Up and Go: Gaiden** is a work-in-progress 3D action adventure platformer which takes place in the year 3278. Memes are dead, and Sanic is struggling to find himself.
 
 ## Screenshots
 

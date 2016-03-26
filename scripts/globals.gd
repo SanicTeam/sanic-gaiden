@@ -18,13 +18,16 @@ var level = null
 
 var paused = false
 
+func load_scene(scene_name):
+	return ResourceLoader.load("res://scenes/" + scene_name + ".scn")
+
 func _ready():
 	var main_scene = get_tree().get_root().get_node("main")
 	
-	camera = ResourceLoader.load("res://scenes/camera.scn").instance()
+	camera = load_scene("camera").instance()
 	main_scene.add_child(camera)
 	
-	fade = ResourceLoader.load("res://scenes/fade.scn").instance()
+	fade = load_scene("fade").instance()
 	main_scene.add_child(fade)
 	
 	set_scene("test_level0")

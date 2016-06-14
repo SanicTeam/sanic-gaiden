@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=1]
 
-[ext_resource path="res://assets/outdoor_environment.res" type="Environment" id=1]
+[ext_resource path="res://assets/outdoor_environment.tres" type="Environment" id=1]
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/materials/tiled_grass_5x5.mtl" type="Material" id=3]
 [ext_resource path="res://assets/materials/tiled_wall_5x1.mtl" type="Material" id=4]
@@ -648,62 +648,62 @@ __meta__ = { "_editor_collapsed":true }
 [node name="ring" parent="rings" instance=ExtResource( 5 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.19301, 2.56942, -2.92974 )
-collision/layers = 1
-collision/mask = 1
+gravity = 9.8
+linear_damp = 0.1
 
 [node name="ring1" parent="rings" instance=ExtResource( 5 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.3172, 2.56942, 1.11646 )
-collision/layers = 1
-collision/mask = 1
+gravity = 9.8
+linear_damp = 0.1
 
 [node name="ring2" parent="rings" instance=ExtResource( 5 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.9623, 2.56942, 5.69819 )
-collision/layers = 1
-collision/mask = 1
+gravity = 9.8
+linear_damp = 0.1
 
 [node name="ring3" parent="rings" instance=ExtResource( 5 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.3233, 2.56942, 10.6112 )
-collision/layers = 1
-collision/mask = 1
+gravity = 9.8
+linear_damp = 0.1
 
 [node name="ring4" parent="rings" instance=ExtResource( 5 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.40466, 2.56942, 14.7629 )
-collision/layers = 1
-collision/mask = 1
+gravity = 9.8
+linear_damp = 0.1
 
 [node name="ring5" parent="rings" instance=ExtResource( 5 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.3233, 2.56942, 10.6112 )
-collision/layers = 1
-collision/mask = 1
+gravity = 9.8
+linear_damp = 0.1
 
 [node name="ring5 2" parent="rings" instance=ExtResource( 5 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.19301, 2.56942, -2.92974 )
-collision/layers = 1
-collision/mask = 1
+gravity = 9.8
+linear_damp = 0.1
 
 [node name="ring5 3" parent="rings" instance=ExtResource( 5 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.9623, 2.56942, 5.69819 )
-collision/layers = 1
-collision/mask = 1
+gravity = 9.8
+linear_damp = 0.1
 
 [node name="ring5 4" parent="rings" instance=ExtResource( 5 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.3172, 2.56942, 1.11646 )
-collision/layers = 1
-collision/mask = 1
+gravity = 9.8
+linear_damp = 0.1
 
 [node name="ring5 5" parent="rings" instance=ExtResource( 5 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.40466, 2.56942, 14.7629 )
-collision/layers = 1
-collision/mask = 1
+gravity = 9.8
+linear_damp = 0.1
 
 [node name="StreamPlayer" type="StreamPlayer" parent="."]
 
@@ -724,32 +724,28 @@ __meta__ = { "_editor_collapsed":true }
 [node name="basketball" parent="basketballs" instance=ExtResource( 7 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.75609, 2.33693, 8.70398 )
-collision/layers = 1
-collision/mask = 1
+bounce = 0.6
 
 [node name="basketball1" parent="basketballs" instance=ExtResource( 7 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.14234, 24.0169, 15.8533 )
-collision/layers = 1
-collision/mask = 1
+bounce = 0.6
 
 [node name="basketball2" parent="basketballs" instance=ExtResource( 7 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19.2903, 13.8257, -6.10044 )
-collision/layers = 1
-collision/mask = 1
+bounce = 0.6
 
 [node name="basketball3" parent="basketballs" instance=ExtResource( 7 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.4051, -14.0625 )
-collision/layers = 1
-collision/mask = 1
+bounce = 0.6
 
 [node name="hoop" parent="." instance=ExtResource( 8 )]
 
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8818, 2.03781, -3.47678 )
-collision/layers = 1
-collision/mask = 1
+gravity = 9.8
+linear_damp = 0.1
 
 [node name="door" parent="." instance=ExtResource( 9 )]
 

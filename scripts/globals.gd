@@ -5,6 +5,7 @@ var score = 0
 var time = 0
 var rings = 0
 
+var main_scene
 var camera
 var fade
 
@@ -22,7 +23,7 @@ func load_scene(scene_name):
 	return ResourceLoader.load("res://scenes/" + scene_name + ".scn")
 
 func _ready():
-	var main_scene = get_tree().get_root().get_node("main")
+	main_scene = get_node("/root/main")
 	
 	camera = load_scene("camera").instance()
 	main_scene.add_child(camera)
@@ -106,7 +107,7 @@ func set_scene(scene):
 	# Create an instance of our scene
 	level = s.instance()
 	# Add scene to main
-	get_tree().get_root().get_node("main/scenes").add_child(level)
+	main_scene.get_node("scenes").add_child(level)
 
 func is_character(body):
 	return body == character

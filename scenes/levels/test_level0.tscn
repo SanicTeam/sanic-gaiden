@@ -7,7 +7,7 @@
 [ext_resource path="res://assets/models/ring/ring.scn" type="PackedScene" id=5]
 [ext_resource path="res://assets/music/glitter_gulch_fast.ogg" type="AudioStream" id=6]
 [ext_resource path="res://assets/models/basketball/basketball.tscn" type="PackedScene" id=7]
-[ext_resource path="res://assets/models/hoop/hoop.scn" type="PackedScene" id=8]
+[ext_resource path="res://assets/models/hoop/hoop.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/models/door/door.tscn" type="PackedScene" id=9]
 
 [sub_resource type="BoxShape" id=1]

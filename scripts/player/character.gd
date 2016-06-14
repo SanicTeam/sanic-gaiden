@@ -1,9 +1,9 @@
 extends KinematicBody
 
 const MAX_SPEED = 10
-const GRAVITY = Vector3(0, -9.8*2, 0)
+const GRAVITY = Vector3(0, -9.8*3.5, 0)
 const MAX_SLOPE_ANGLE = deg2rad(45)
-const JUMP_SPEED = 10
+const JUMP_SPEED = 12
 const Y_VEC = Vector3(0, -1, 0)
 
 const ACCEL_SPEED = 40
@@ -13,6 +13,7 @@ const AIR_THRESHOLD = 5
 
 var air_timer
 var air_timeout = true
+var jump_timer
 
 var camera
 var model
@@ -29,6 +30,7 @@ func _ready():
 	model = get_node("model")
 	animations = model.get_node("AnimationPlayer")
 	air_timer = get_parent().get_node("air_timer")
+	jump_timer = get_node("../jump_timer")
 	set_fixed_process(true)
 
 func _fixed_process(delta):

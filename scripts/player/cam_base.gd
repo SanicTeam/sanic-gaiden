@@ -20,7 +20,7 @@ var velocity = Vector3(0, 0, 0)
 func _ready():
 	cam_pitch = get_node("cam_pitch")
 	cam_pod = cam_pitch.get_node("cam/cam_pod")
-	character = get_parent().get_node("character")
+	character = get_node("../character")
 	set_process_input(true)
 	set_process(true)
 

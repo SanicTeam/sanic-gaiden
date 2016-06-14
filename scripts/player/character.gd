@@ -26,10 +26,10 @@ var on_ground = false
 var jump_held = false
 
 func _ready():
-	camera = get_tree().get_root().get_node("globals").camera
+	camera = globals.camera
 	model = get_node("model")
 	animations = model.get_node("AnimationPlayer")
-	air_timer = get_parent().get_node("air_timer")
+	air_timer = get_node("../air_timer")
 	jump_timer = get_node("../jump_timer")
 	set_fixed_process(true)
 

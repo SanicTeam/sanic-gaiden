@@ -20,7 +20,7 @@ var level = null
 var paused = false
 
 func load_scene(scene_name):
-	return ResourceLoader.load("res://scenes/" + scene_name + ".scn")
+	return ResourceLoader.load("res://scenes/" + scene_name + ".tscn")
 
 func _ready():
 	main_scene = get_node("/root/main")
@@ -103,7 +103,7 @@ func set_scene(scene):
 	if level != null:
 		level.queue_free()
 	# Load the file passed in as the param "scene"
-	var s = ResourceLoader.load("res://scenes/levels/" + scene + ".scn")
+	var s = ResourceLoader.load("res://scenes/levels/" + scene + ".tscn")
 	# Create an instance of our scene
 	level = s.instance()
 	# Add scene to main

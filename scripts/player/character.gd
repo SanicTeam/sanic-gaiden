@@ -61,11 +61,13 @@ func _fixed_process(delta):
 	# If we're on the ground and want to jump, set the velocity accordingly
 	if jump:
 		if on_ground and !jump_held:
-			velocity.y = JUMP_SPEED
 			jump_held = true
 			on_ground = false
 			air_timeout = true
 			get_node("sounds").play("jump")
+			jump_timer.start()
+		if jump_held and jump_timer.get_time_left() > 0:
+			velocity.y = JUMP_SPEED
 	else:
 		jump_held = false
 	

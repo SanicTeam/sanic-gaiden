@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://scripts/hud.gd" type="Script" id=1]
+
+[node name="hud" type="Node2D"]
+
+script/script = ExtResource( 1 )
+__meta__ = { "__editor_plugin_screen__":"Script" }
+
+[node name="score" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+margin/left = 14.0
+margin/top = 15.0
+margin/right = 99.0
+margin/bottom = 32.0
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+text = "Score: "
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="time" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+margin/left = 14.0
+margin/top = 36.0
+margin/right = 99.0
+margin/bottom = 53.0
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+text = "Time: "
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="rings" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+margin/left = 15.0
+margin/top = 60.0
+margin/right = 100.0
+margin/bottom = 77.0
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+text = "Rings: "
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+

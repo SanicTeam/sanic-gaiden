@@ -1,0 +1,123 @@
+[gd_scene load_steps=9 format=1]
+
+[ext_resource path="res://scripts/player/player.gd" type="Script" id=1]
+[ext_resource path="res://scripts/player/character.gd" type="Script" id=2]
+[ext_resource path="res://assets/models/sanic/sanic.scn" type="PackedScene" id=3]
+[ext_resource path="res://assets/sounds/jump.wav" type="Sample" id=4]
+[ext_resource path="res://scripts/player/cam_base.gd" type="Script" id=5]
+[ext_resource path="res://scripts/player/cam_pod.gd" type="Script" id=6]
+
+[sub_resource type="CapsuleShape" id=1]
+
+radius = 0.928637
+height = 0.740731
+
+[sub_resource type="SampleLibrary" id=2]
+
+samples/jump = { "db":0.0, "pitch":1.0, "sample":ExtResource( 4 ) }
+
+[node name="player" type="Spatial"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.09904, 0 )
+script/script = ExtResource( 1 )
+__meta__ = { "__editor_plugin_screen__":"Script" }
+
+[node name="character" type="KinematicBody" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+input/ray_pickable = true
+input/capture_on_drag = false
+shape_count = 1
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.24136, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+collide_with/static = true
+collide_with/kinematic = true
+collide_with/rigid = true
+collide_with/character = true
+collision/margin = 0.001
+script/script = ExtResource( 2 )
+__meta__ = { "_editor_collapsed":true }
+
+[node name="model" parent="character" instance=ExtResource( 3 )]
+
+[node name="CollisionShape" type="CollisionShape" parent="character"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.24136, 0 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="sounds" type="SpatialSamplePlayer" parent="character"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+params/volume_db = -18.95
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 100.0
+params/attenuation/distance_exp = 1.0
+params/emission_cone/degrees = 180.0
+params/emission_cone/attenuation_db = -6.0
+config/polyphony = 1
+config/samples = SubResource( 2 )
+
+[node name="air_timer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 0.17
+one_shot = true
+autostart = false
+
+[node name="jump_timer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 0.2
+one_shot = true
+autostart = false
+
+[node name="cam_base" type="Spatial" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+script/script = ExtResource( 5 )
+
+[node name="cam_pitch" type="Spatial" parent="cam_base"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.20332, 0 )
+
+[node name="cam" type="Spatial" parent="cam_base/cam_pitch"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.92967 )
+
+[node name="cam_pod" type="Spatial" parent="cam_base/cam_pitch/cam"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+script/script = ExtResource( 6 )
+
+[node name="cam_pos" type="Position3D" parent="cam_base/cam_pitch/cam/cam_pod"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.23414 )
+
+[node name="cam_look" type="Position3D" parent="cam_base/cam_pitch/cam/cam_pod"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5 )
+
+[node name="ray" type="RayCast" parent="cam_base/cam_pitch/cam/cam_pod"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5 )
+enabled = true
+cast_to = Vector3( 0, 0, 5 )
+layer_mask = 1
+type_mask = 15
+
+[connection signal="timeout" from="air_timer" to="character" method="_on_air_timer_timeout"]
+
+
